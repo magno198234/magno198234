@@ -1,10 +1,33 @@
-- 👋 Hi, I’m @magno198234
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
+# FaceAI Studio
 
-<!---
-magno198234/magno198234 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+App web em React + TypeScript para simulação estética facial para clínicas e dermatologistas.
+
+## Stack
+- React + TypeScript
+- Tailwind CSS
+- Componentes estilo shadcn/ui
+- Supabase Auth + DB
+- React Router
+
+## Rodando localmente
+```bash
+npm install
+npm run dev
+```
+
+## Variáveis de ambiente
+Copie `.env.example` para `.env` e preencha:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+## Banco de dados
+Execute o SQL em `supabase/schema.sql` no SQL Editor do Supabase.
+
+## O que já está pronto
+- Landing page e autenticação com fluxo em português.
+- Dashboard do paciente, simulação e página de resultado.
+- Persistência local de sessão e simulações (localStorage) para testes imediatos.
+- Dashboard de clínica com estatísticas em cima das simulações salvas.
+
+## Placeholder de IA
+A função `gerarSimulacaoIA(foto, procedimento, ml, intensidade)` está em `src/lib/ia.ts` e atualmente retorna uma URL simulada para facilitar integração futura.
