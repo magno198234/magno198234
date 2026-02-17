@@ -23,5 +23,11 @@ Copie `.env.example` para `.env` e preencha:
 ## Banco de dados
 Execute o SQL em `supabase/schema.sql` no SQL Editor do Supabase.
 
+## O que já está pronto
+- Landing page e autenticação com fluxo em português.
+- Dashboard do paciente, simulação e página de resultado.
+- Persistência local de sessão e simulações (localStorage) para testes imediatos.
+- Dashboard de clínica com estatísticas em cima das simulações salvas.
+
 ## Placeholder de IA
 A função `gerarSimulacaoIA(foto, procedimento, ml, intensidade)` está em `src/lib/ia.ts` e atualmente retorna uma URL simulada para facilitar integração futura.

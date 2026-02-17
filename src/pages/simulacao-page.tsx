@@ -1,11 +1,14 @@
 import { Camera, ImagePlus } from 'lucide-react'
 import ReactCompareImage from 'react-compare-image'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { Select } from '../components/ui/select'
 import { gerarSimulacaoIA } from '../lib/ia'
 import { useToast } from '../components/ui/toast'
+import { addSimulacao } from '../lib/storage'
+import { useAuth } from '../contexts/auth-context'
 
 const procedimentos = [
   'Botox - Testa',
@@ -27,8 +30,10 @@ export function SimulacaoPage() {
   const [resultadoUrl, setResultadoUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const { addToast } = useToast()
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
-  const preview = foto ? URL.createObjectURL(foto) : ''
+  const preview = useMemo(() => (foto ? URL.createObjectURL(foto) : ''), [foto])
 
   const gerar = async () => {
     if (!foto) {
@@ -46,6 +51,28 @@ export function SimulacaoPage() {
     } finally {
       setLoading(false)
     }
+  }
+
+  const salvarResultado = () => {
+    if (!preview || !resultadoUrl || !user) {
+      addToast('Gere uma simulação válida para salvar.', 'error')
+      return
+    }
+
+    const id = crypto.randomUUID()
+    addSimulacao({
+      id,
+      user_id: user.id,
+      procedimento,
+      quantidade_ml: ml,
+      intensidade,
+      foto_original_url: preview,
+      foto_resultado_url: resultadoUrl,
+      created_at: new Date().toISOString(),
+    })
+
+    addToast('Simulação salva com sucesso.', 'success')
+    navigate(`/resultado/${id}`)
   }
 
   return (
@@ -103,8 +130,8 @@ export function SimulacaoPage() {
           <div>
             <ReactCompareImage leftImage={preview} rightImage={resultadoUrl} />
             <div className="mt-4 flex flex-wrap gap-2">
-              <Button>Salvar</Button>
-              <Button variant="outline">Compartilhar</Button>
+              <Button onClick={salvarResultado}>Salvar</Button>
+              <Button variant="outline" disabled>Compartilhar</Button>
               <Button variant="outline" onClick={() => setResultadoUrl('')}>Novo Procedimento</Button>
             </div>
           </div>

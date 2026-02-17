@@ -19,7 +19,7 @@ export function CadastroPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      await cadastro(nome, email, tipo)
+      await cadastro(nome, email, senha, tipo)
       addToast('Cadastro concluído com sucesso.', 'success')
       navigate(tipo === 'clinica' ? '/clinica' : '/dashboard')
     } catch {

@@ -16,7 +16,7 @@ export function LoginPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     try {
-      await login(email)
+      await login(email, senha)
       addToast('Login realizado com sucesso.', 'success')
       navigate('/dashboard')
     } catch {
